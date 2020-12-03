@@ -1,1 +1,39 @@
+program CAJERO_BANESCO;
+uses
+crt;
+var
+clave : string;i : integer;tecla : char;usuario: string;
 
+begin
+clrscr;
+writeln('bienvenido a Banesco');
+write('ingrese usuario : ');
+readln(usuario);
+
+i := 1;
+write('Entre Clave : ');
+
+repeat
+tecla := readkey;
+if tecla in[#48..#57,#65..#90,#97..#122,#164,#165] then
+begin
+clave[i] := upcase(tecla);
+clave[0] := chr(i);
+;write('*');
+i := i + 1;
+end;
+if tecla = #32 then
+begin
+i := i - 1;
+if i < 1 then
+i := 1;
+clave[i] := ' ';
+clave[0] := chr(i);
+gotoxy(22 + i,10);write(' ');
+end;
+until tecla = #13;
+clrscr;
+writeln('Su usuario es : ',usuario);
+writeln('Su clave es : ',clave);
+readln;
+end.
