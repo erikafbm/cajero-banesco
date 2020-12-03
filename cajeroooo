@@ -1,0 +1,66 @@
+apellido: string;
+cedula: char;
+
+begin
+clrscr;
+writeln('             Bienvenido a su banco Banesco');
+writeln;
+writeln('           PROCEDEREMOS A CREAR SU CUENTA...' );
+writeln;
+write('- ingrese nombres del usuario : ');  { CREACION  DE USUARIO DE BANCO}
+readln(usuario);
+writeln;
+write('- ingrese apellidos del usuario : ');  { CREACION  DE USUARIO DE BANCO}
+readln(apellido);
+writeln;
+write('- ingrese  cedula del usuario : ');  { ANOTACION DE LA CEDULA }
+readln(cedula);
+writeln(cedula);
+
+i := 1;
+write('- ingrese una contraseña para su cuenta: '); { CREACION  DE CLAVE DE BANCO}
+
+
+repeat
+tecla := readkey;
+if tecla in[#48..#57,#65..#90,#97..#122,#164,#165] then
+begin
+clave[i] := upcase(tecla);
+clave[0] := chr(i);
+;write('*');
+i := i + 1;
+end;
+if tecla = #32 then
+begin
+i := i - 1;
+if i < 1 then
+i := 1;
+clave[i] := ' ';
+clave[0] := chr(i);
+gotoxy(22 + i,10);write(' ');
+end;
+until tecla = #13;
+clrscr;
+writeln('Su usuario es : ',usuario,' ', apellido,' ','-',' ',cedula);   { COMPROBACION DE TU CUENTA (USUARIO/CLAVE) DE BANCO}
+writeln;
+writeln('Su clave es : ',clave);
+writeln;
+writeln('presione enter para continuar');
+readln;
+
+clrscr;
+
+repeat
+begin
+writeln('Ingrese su contraseña (en MAYUSCULAS): ');    { ACCESO A LA CUENTA, DE NO SER CORRECTA LA CONTRASEÑA NO DEJARA ENTRAR}
+readln(pas);                             { nota: la contraseña solo sempuede poner en MAYUSCULAS}
+end;
+until pas= clave;
+clrscr;
+
+writeln('BIENVENIDO A SU CUENTA DE BANESCO USUARIO: ',usuario,' ',apellido);
+
+writeln;
+writeln('Desea realizar la transaccion? si/no');
+readln(resp);
+while resp='s' do
