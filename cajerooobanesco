@@ -1,0 +1,195 @@
+// REGISTROS EN PASCAL PARA PROGRAMACION 1 - PROFESOR: SILVESTRE CARDENAS - (4/12/2020)
+// UNIMAR- ALMA MATER DEL CARIBE
+// EXAMEN 
+// ALUMNO1= JESUS JOAQUIN ZORRILLA MARCANO-29706617
+// ALUMNO2=
+// ALUMNO3=
+
+
+
+
+
+program SUPER_CAJERO_BANESCO;
+
+// esta vez no usaremos gotoxy, en cambio haremos uso de la barra espaciadora y writelna nuestro favor:)
+
+uses crt;
+var pas:string;
+resp:char;
+opc:char;
+total,dep,ret:real;
+wish:char;
+clave : string;
+i : integer;
+tecla : char;
+usuario: string;
+apellido: string;
+cedula: char;
+
+begin
+clrscr;
+writeln;
+writeln('         -----------------------------------------');
+
+write('         -- '); textcolor(10); write('  Bienvenido a tu banco ');textcolor(1);write('𝐁𝐀𝐍𝐄𝐒𝐂𝐎');textcolor(10); write('•'); textcolor(9); write('•'); textcolor(12); write('•'); normvideo;write('  --');
+writeln('            -----------------------------------------');
+writeln;
+write('              presione enter para continuar...');
+
+readln;
+clrscr;
+writeln;
+write('       procederemos a la creacion de su usuario en ');textcolor(1);write('𝐁𝐀𝐍𝐄𝐒𝐂𝐎');normvideo;
+writeln;
+writeln;
+write('- ingresar un nombre de usuario : ');  { CREACION  DE USUARIO DE BANCO}
+readln(usuario);
+writeln;
+write('- ingrese apellidos : ');  { CREACION  DE USUARIO DE BANCO}
+readln(apellido);
+writeln;
+write('- ingrese un numero de cedula: ');  { ANOTACION DE LA CEDULA }
+readln(cedula);
+
+writeln;
+i := 1;
+write('- ingrese una contraseña numerica para su cuenta: '); { CREACION  DE CLAVE DE BANCO}
+
+
+repeat
+tecla := readkey;
+if tecla in[#48..#57,#65..#90,#97..#122,#164,#165] then
+begin
+clave[i] := upcase(tecla);
+clave[0] := chr(i);
+;write('*');
+i := i + 1;
+end;
+if tecla = #32 then
+begin
+i := i - 1;
+if i < 1 then
+i := 1;
+clave[i] := ' ';
+clave[0] := chr(i);
+gotoxy(22 + i,10);write(' ');
+end;
+until tecla = #13;
+clrscr;
+writeln; write('                  ');textbackground(cyan); textcolor(white+blink);
+writeln(' verifique sus datos '); normvideo;
+writeln;
+writeln('-Su usuario es : ',usuario,' ', apellido);   { COMPROBACION DE TU CUENTA (USUARIO/CLAVE) DE BANCO}
+writeln;
+writeln('-Su contraseña es : ',clave);
+writeln;
+write('     SU USUARIO ');textcolor(1);write('𝐁𝐀𝐍𝐄𝐒𝐂𝐎');normvideo; write(' HA SIDO CREADO EXITOSAMENTE');
+writeln;
+writeln;textcolor(yellow+blink);
+writeln('             presione enter para continuar...');normvideo;
+readln;
+
+clrscr;
+
+repeat
+begin
+writeln;write('          ');
+textcolor(1);write('𝐁𝐀𝐍𝐄𝐒𝐂𝐎');textcolor(10); write('•'); textcolor(9); write('•'); textcolor(12); write('•'); normvideo;
+writeln;
+writeln;
+write('-Ingrese su cedula: ');
+readln;
+writeln;
+
+write('-Ingrese su contraseña: ');    { ACCESO A LA CUENTA, DE NO SER CORRECTA LA CLAVE NO DEJARA ENTRAR}
+readln(pas);                             { nota: la clave solo sera numerica, de ser letras tendra que colococarla en MAYUSCULAS}
+end;
+until pas= clave;
+clrscr;
+writeln;
+write('    BIENVENIDO A SU CUENTA DE '); textcolor(1);write('𝐁𝐀𝐍𝐄𝐒𝐂𝐎');normvideo;write(' USUARIO: ');write(usuario,' ',apellido);
+writeln;
+writeln;
+writeln('          Desea realizar la transaccion? si/no');
+readln(resp);
+while resp='s' do
+begin
+writeln;
+textcolor(yellow + blink); textbackground(black);
+ writeln('   Elija con un numero la opcion que desea...'); normvideo;  { MENU DE CAJERO}
+writeln;
+writeln('1=Deposito de dinero');
+writeln('2=Retiro de dinero');
+writeln('3=consulta de fondos');
+writeln('otras opciones seran invalidas');
+readln(opc);
+
+case opc of
+'1':begin
+writeln;
+textcolor(green);                                                            {PRIMERA OPCION: DEPOSITO}
+writeln('» La opcion 1 es el deposito de dinero');normvideo;
+
+begin
+writeln;
+writeln('Ingrese la cantidad de dinero a depositar');
+read(dep);
+total:=total+dep;
+writeln;
+writeln('El saldo de su cuenta es de:',total:2:0);
+writeln;
+writeln('desea depositar dinero nuevamente?, digite si/no');
+readln(wish);
+end;
+end;
+
+'2':begin                                                  {SEGUNDA OPCION: RETIRO}
+writeln;textcolor(11);
+writeln('» La opcion 2 es el retiro de dinero');normvideo;
+repeat
+begin
+writeln;
+writeln('     Ingrese la cantidad de dinero a retirar');
+writeln;
+      writeln ('- 1000 bs ');
+      writeln ('- 2000 bs ');
+      writeln ('- 10000 bsf ');
+      writeln ('- 20000 bsf ');
+      writeln ('- 50000 bsf ');
+      writeln;
+read(ret);
+if ret>total then
+begin
+writeln;
+writeln('La cantidad que usted ingreso es mayor a la del saldo actual de su cuenta');
+end
+else
+begin
+total:=total-ret;
+writeln;
+writeln('El saldo de su cuenta es de:',total:2:0);
+end;
+writeln;
+writeln('desea retirar dinero de nuevo?, digite si/no');
+readln(resp);
+end;
+until resp='no'
+end;
+
+
+'3':begin                                                                          {TERCERA OPCION: FONDO TOTAL}
+writeln;textcolor(5);
+writeln('» La opcion 3 es para consulta de fondos');normvideo;
+repeat
+writeln('Su saldo actual de dinero es de',total:2:0);
+writeln('desea depositar consultar los fondos de nuevo?, digite si/no');
+readln(resp);
+until resp='no'
+end;
+
+else
+writeln('La opcion que usted ingreso no es valida, por favor digite 1,2 ó 3 para poder realizar la transaccion deseada');
+end;
+end;
+end.
+end.
